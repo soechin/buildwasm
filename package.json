@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@soechin/buildwasm",
-  "version": "1.0.0",
+  "version": "2023.3.30-1530",
   "author": {
     "name": "Tzuchin Chang",
     "email": "soechin@gmail.com"
@@ -15,6 +15,7 @@
     "build:libpng": "node build-libpng.js",
     "build:libtiff": "node build-libtiff.js",
     "build:opencv": "node build-opencv.js",
-    "build:zlib": "node build-zlib.js"
+    "build:zlib": "node build-zlib.js",
+    "pack": "node pack.js"
   }
 }
