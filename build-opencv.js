@@ -1,36 +1,6 @@
-import child_process from 'child_process';
+import { spawnExec, askQuestion } from './common.js';
 import path from 'path';
 import url from 'url';
-import readline from 'readline';
-
-async function askQuestion(query) {
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
-
-  return new Promise((resolve) => {
-    rl.question(query, (answer) => {
-      resolve(answer);
-      rl.close();
-    });
-  });
-}
-
-async function spawnExec(cmd, args) {
-  const proc = child_process.spawn(cmd, args);
-  proc.stderr.on('data', (chunk) => process.stderr.write(chunk));
-  proc.stdout.on('data', (chunk) => process.stdout.write(chunk));
-
-  const code = await new Promise((resolve, reject) => {
-    proc.on('error', (err) => reject(err));
-    proc.on('close', (code) => resolve(code));
-  });
-
-  if (code != 0) {
-    process.exit(code);
-  }
-}
 
 const root = path.dirname(url.fileURLToPath(import.meta.url));
 const run = ['run', '-v', `${root}:/src`, '--rm', 'emscripten/emsdk'];
@@ -52,22 +22,115 @@ await spawnExec('docker', [...run, 'emcmake', 'cmake', '/src/opencv-4.7.0',
   "-DCPU_DISPATCH=''",
   "-DCV_ENABLE_INTRINSICS=OFF",
   "-DCV_TRACE=OFF",
+  "-DWITH_1394=OFF",
+  "-DWITH_ADE=OFF",
+  "-DWITH_ARAVIS=OFF",
+  "-DWITH_CANN=OFF",
+  "-DWITH_CLP=OFF",
+  "-DWITH_CUDA=OFF",
+  "-DWITH_EIGEN=OFF",
+  "-DWITH_FFMPEG=OFF",
+  "-DWITH_FREETYPE=OFF",
+  "-DWITH_GDAL=OFF",
+  "-DWITH_GDCM=OFF",
+  "-DWITH_GPHOTO2=OFF",
+  "-DWITH_GSTREAMER=OFF",
+  "-DWITH_GTK=OFF",
+  "-DWITH_GTK_2_X=OFF",
+  "-DWITH_HALIDE=OFF",
+  "-DWITH_HPX=OFF",
+  "-DWITH_IMGCODEC_HDR=OFF",
+  "-DWITH_IMGCODEC_PFM=OFF",
+  "-DWITH_IMGCODEC_PXM=OFF",
+  "-DWITH_IMGCODEC_SUNRASTER=OFF",
   "-DWITH_IPP=OFF",
   "-DWITH_ITT=OFF",
   "-DWITH_JASPER=OFF",
+  "-DWITH_JPEG=ON",
+  "-DWITH_LAPACK=OFF",
+  "-DWITH_LIBREALSENSE=OFF",
+  "-DWITH_MFX=OFF",
+  "-DWITH_OAK=OFF",
+  "-DWITH_OBSENSOR=OFF",
+  "-DWITH_ONNX=OFF",
   "-DWITH_OPENCL=OFF",
+  "-DWITH_OPENCLAMDBLAS=OFF",
+  "-DWITH_OPENCLAMDFFT=OFF",
+  "-DWITH_OPENCL_SVM=OFF",
+  "-DWITH_OPENEXR=OFF",
+  "-DWITH_OPENGL=OFF",
   "-DWITH_OPENJPEG=OFF",
+  "-DWITH_OPENMP=OFF",
+  "-DWITH_OPENNI=OFF",
+  "-DWITH_OPENNI2=OFF",
+  "-DWITH_OPENVINO=OFF",
+  "-DWITH_OPENVX=OFF",
+  "-DWITH_PLAIDML=OFF",
+  "-DWITH_PNG=ON",
   "-DWITH_PROTOBUF=OFF",
   "-DWITH_PTHREADS_PF=OFF",
+  "-DWITH_PVAPI=OFF",
+  "-DWITH_QT=OFF",
   "-DWITH_QUIRC=OFF",
+  "-DWITH_SPNG=OFF",
+  "-DWITH_TBB=OFF",
+  "-DWITH_TIFF=ON",
+  "-DWITH_TIMVX=OFF",
+  "-DWITH_UEYE=OFF",
+  "-DWITH_V4L=OFF",
+  "-DWITH_VA=OFF",
+  "-DWITH_VA_INTEL=OFF",
+  "-DWITH_VULKAN=OFF",
+  "-DWITH_WAYLAND=OFF",
+  "-DWITH_WEBNN=OFF",
   "-DWITH_WEBP=OFF",
+  "-DWITH_XIMEA=OFF",
+  "-DWITH_XINE=OFF",
+  "-DBUILD_CUDA_STUBS=OFF",
+  "-DBUILD_DOCS=OFF",
+  "-DBUILD_EXAMPLES=OFF",
+  "-DBUILD_FAT_JAVA_LIB=OFF",
+  "-DBUILD_IPP_IW=OFF",
+  "-DBUILD_ITT=OFF",
+  "-DBUILD_JASPER=OFF",
+  "-DBUILD_JAVA=OFF",
+  "-DBUILD_JPEG=OFF",
+  "-DBUILD_OPENEXR=OFF",
+  "-DBUILD_OPENJPEG=OFF",
+  "-DBUILD_PACKAGE=ON",
+  "-DBUILD_PERF_TESTS=OFF",
+  "-DBUILD_PNG=OFF",
+  "-DBUILD_SHARED_LIBS=OFF",
+  "-DBUILD_TBB=OFF",
+  "-DBUILD_TESTS=OFF",
+  "-DBUILD_TIFF=OFF",
+  "-DBUILD_USE_SYMLINKS=OFF",
+  "-DBUILD_WEBP=OFF",
+  "-DBUILD_WITH_DEBUG_INFO=OFF",
+  "-DBUILD_WITH_DYNAMIC_IPP=OFF",
+  "-DBUILD_ZLIB=OFF",
   "-DBUILD_opencv_apps=OFF",
-  "-DBUILD_opencv_dnn=OFF",
+  "-DBUILD_opencv_calib3d=ON",
+  "-DBUILD_opencv_core=ON",
+  "-DBUILD_opencv_features2d=ON",
+  "-DBUILD_opencv_flann=ON",
   "-DBUILD_opencv_highgui=OFF",
-  "-DBUILD_opencv_gapi=OFF",
+  "-DBUILD_opencv_imgcodecs=ON",
+  "-DBUILD_opencv_imgproc=ON",
+  "-DBUILD_opencv_java_bindings_generator=OFF",
+  "-DBUILD_opencv_js=OFF",
+  "-DBUILD_opencv_js_bindings_generator=OFF",
+  "-DBUILD_opencv_ml=OFF",
+  "-DBUILD_opencv_objc_bindings_generator=OFF",
+  "-DBUILD_opencv_objdetect=ON",
+  "-DBUILD_opencv_photo=ON",
+  "-DBUILD_opencv_python_bindings_generator=OFF",
+  "-DBUILD_opencv_python_tests=OFF",
+  "-DBUILD_opencv_stitching=OFF",
   "-DBUILD_opencv_ts=OFF",
   "-DBUILD_opencv_video=OFF",
   "-DBUILD_opencv_videoio=OFF",
+  "-DBUILD_opencv_world=OFF",
   '-L',
 ]);
 
