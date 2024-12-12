@@ -5,7 +5,7 @@ import url from 'url';
 const root = path.dirname(url.fileURLToPath(import.meta.url));
 const run = ['run', '-v', `${root}:/src`, '--rm', 'emscripten/emsdk'];
 
-await spawnExec('docker', [...run, 'emcmake', 'cmake', '/src/opencv-4.7.0',
+await spawnExec('docker', [...run, 'emcmake', 'cmake', '/src/opencv-4.10.0',
   '-B', 'build/opencv',
   '-DCMAKE_BUILD_TYPE=Release',
   '-DCMAKE_INSTALL_PREFIX=/src/dist/opencv',

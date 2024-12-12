@@ -5,7 +5,7 @@ import url from 'url';
 const root = path.dirname(url.fileURLToPath(import.meta.url));
 const run = ['run', '-v', `${root}:/src`, '--rm', 'emscripten/emsdk'];
 
-await spawnExec('docker', [...run, 'emcmake', 'cmake', '/src/libpng-1.6.39',
+await spawnExec('docker', [...run, 'emcmake', 'cmake', '/src/libpng-1.6.44',
   '-B', 'build/libpng',
   '-DCMAKE_BUILD_TYPE=Release',
   '-DCMAKE_INSTALL_PREFIX=/src/dist/libpng',

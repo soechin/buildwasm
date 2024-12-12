@@ -5,7 +5,7 @@ import url from 'url';
 const root = path.dirname(url.fileURLToPath(import.meta.url));
 const run = ['run', '-v', `${root}:/src`, '--rm', 'emscripten/emsdk'];
 
-await spawnExec('docker', [...run, 'emcmake', 'cmake', '/src/libtiff-v4.5.0',
+await spawnExec('docker', [...run, 'emcmake', 'cmake', '/src/libtiff-v4.7.0',
   '-B', 'build/libtiff',
   '-DCMAKE_BUILD_TYPE=Release',
   '-DCMAKE_INSTALL_PREFIX=/src/dist/libtiff',

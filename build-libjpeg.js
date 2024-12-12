@@ -5,7 +5,7 @@ import url from 'url';
 const root = path.dirname(url.fileURLToPath(import.meta.url));
 const run = ['run', '-v', `${root}:/src`, '--rm', 'emscripten/emsdk'];
 
-await spawnExec('docker', [...run, 'emcmake', 'cmake', '/src/libjpeg-turbo-2.1.5.1',
+await spawnExec('docker', [...run, 'emcmake', 'cmake', '/src/libjpeg-turbo-3.0.4',
   '-B', 'build/libjpeg',
   '-DCMAKE_BUILD_TYPE=Release',
   '-DCMAKE_INSTALL_PREFIX=/src/dist/libjpeg',

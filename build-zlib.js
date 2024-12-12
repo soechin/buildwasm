@@ -5,7 +5,7 @@ import url from 'url';
 const root = path.dirname(url.fileURLToPath(import.meta.url));
 const run = ['run', '-v', `${root}:/src`, '--rm', 'emscripten/emsdk'];
 
-await spawnExec('docker', [...run, 'emcmake', 'cmake', '/src/zlib-1.2.13',
+await spawnExec('docker', [...run, 'emcmake', 'cmake', '/src/zlib-1.3.1',
   '-B', 'build/zlib',
   '-DCMAKE_BUILD_TYPE=Release',
   '-DCMAKE_INSTALL_PREFIX=/src/dist/zlib',
